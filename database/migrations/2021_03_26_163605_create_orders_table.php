@@ -13,20 +13,19 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('order', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('code');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('seller_id');
-            $table->unsignedBigInteger('price')->default(0);
             $table->boolean('confirmed')->default(false);
             $table->timestamps();
         });
-        Schema::table('order', function (Blueprint $table) {
-            $table->foreign('product_id')->references('id')->on('product');
+        Schema::table('orders', function (Blueprint $table) {
+            $table->foreign('product_id')->references('id')->on('products');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('seller_id')->references('id')->on('seller');
+            $table->foreign('seller_id')->references('id')->on('sellers');
         });
     }
 
@@ -37,6 +36,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order');
+        Schema::dropIfExists('orders');
     }
 }

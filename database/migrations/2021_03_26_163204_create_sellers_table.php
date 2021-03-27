@@ -13,11 +13,11 @@ class CreateSellersTable extends Migration
      */
     public function up()
     {
-        Schema::create('seller', function (Blueprint $table) {
+        Schema::create('sellers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('mail');
-            $table->string('adress');
+            $table->string('address');
             $table->string('phone_number');
             $table->timestamps();
         });
