@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -12,6 +13,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function byId($id){
+        return response()->json(Product::find($id));
+    }
     public function index()
     {
         //получаем все продукты
@@ -23,6 +27,7 @@ class ProductController extends Controller
             $productResponce = [
                 'id' => $product->id,
                 'name' => $product->name,
+                'description' => $product->description,
                 'category_id' => $product->category_id,
                 //добавляем название категории
                 'category' => $product->category->name,
@@ -36,6 +41,29 @@ class ProductController extends Controller
         return response()->json($productsResponce);
     }
 
+    public function byCategoryId($category_id)
+    {
+        $products =  Product::all()->where('category_id',$category_id);
+        
+        $productsResponce = array();
+        //добавляем в массив ответа данные
+        foreach($products as $product ){
+            $productResponce = [
+                'id' => $product->id,
+                'name' => $product->name,
+                'description' => $product->description,
+                'category_id' => $product->category_id,
+                //добавляем название категории
+                'category' => $product->category->name,
+                'price' => $product->price,
+                'created_at' => json_encode($product->created_at),
+                'updated_at' => json_encode($product->updated_at), 
+            ];
+            array_push($productsResponce,$productResponce);
+        }
+        //отвечаем
+        return response()->json($productsResponce);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -43,29 +71,24 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
-        //если заголовок запроса 'Content-Type' равен 'application/json' 
-        if ($request->header('Content-Type') == 'application/json') {
-            //если json валидный
-            if($request->json()->all()){
-                //правила вадидации
-                $request->validate([
-                    'name'=>'required',
-                    'description'=>'required',
-                    'price'=>'required'
-                ]);
-                //создаём запись
-                Product::create($request->all());
-                return response()->json($request->all());
-            }
-            else{
-                return response()->json('invalid JSON',400);    
-            }
-        }        
+        //правила вадидации
+        $rules = [
+            'name'=>'required',
+            'category_id'=>'required|numeric',
+            'description'=>'required',
+            'price'=>'required|numeric'
+        ];
+        $validator= Validator::make($request->all(),$rules);
+        //если не валидные данные то возвращаем ошибку
+        if($validator->fails()){
+            return response()->json($validator->errors(),400);
+        }
         else{
-            return response()->json('buddy I\'m waiting JSON data',400);
+            //создаём запись
+            Product::create($request->all());
+            return response()->json($request->all());
         }
     }
-
     /**
      * Store a newly created resource in storage.
      *

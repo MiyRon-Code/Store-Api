@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -23,9 +25,46 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        //правила вадидации
+        $rules = [
+            'name'=>'required',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password'=>['required','min:8']
+        ];
+        $validator = Validator::make($request->all(), $rules); 
+        if($validator->fails()){
+            return response()->json($validator->errors(),401);
+        }
+        else{
+            $input = $request->all();
+            $input['password'] = Hash::make($input['password']);
+            User::create($input);
+            return response()->json($input);
+        }
+    }
+
+    public function token(Request $request)
+    {
+        //правила вадидации
+        $rules = [
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password'=>['required','min:8']
+        ];
+        $validator = Validator::make($request->all(), $rules); 
+        if($validator->fails()){
+            return response()->json($validator->errors(),401);
+        }
+        else{
+            $user = User::where('email', $request->email)->first();
+            if (!$user ||  !Hash::check($request->password, $user->password)){
+                return response()->json('invalid password', 401);
+            }
+            else{
+                return response()->json(['token' => $user->createToken('auth token')->plainTextToken]);
+            }
+        }
     }
 
     /**
