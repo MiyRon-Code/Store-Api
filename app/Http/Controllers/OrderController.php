@@ -21,7 +21,16 @@ class OrderController extends Controller
         $myOrders = Order::all()->where('user_id',$request->user()->id);
         return response()->json($myOrders);
     }
- 
+    
+    public function confirmed(Request $request){
+        $confirmedOrders = Order::all()->where('confirmed',true);
+        return response()->json($confirmedOrders);
+    } 
+
+    public function unconfirmed(Request $request){
+        $confirmedOrders = Order::all()->where('confirmed',false);
+        return response()->json($confirmedOrders);
+    } 
 
     /**
      * Show the form for creating a new resource.
@@ -30,13 +39,13 @@ class OrderController extends Controller
      */
     public function create(Request $request, $product_id)
     {
-        Order::create([
+        $order = Order::create([
             'code' => 'asda',
             'product_id' => $product_id,
             'user_id' => $request->user()->id,
-            'seller_id' => 1,
             'confirmed' => false,
         ]);
+        return response()->json($order);
     }
 
     /**
@@ -90,8 +99,12 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($order_id)
     {
-        //
+        $order = Order::destroy($order_id);
+        return response()->json($order);
+    }
+    public function destroyAll(){
+
     }
 }

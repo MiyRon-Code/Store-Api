@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Seller;
 use Illuminate\Http\Request;
-use App\Models\Category;
 use Illuminate\Support\Facades\Validator;
 
-class CategoryController extends Controller
+class SellerCotroller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,14 +15,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return response()->json($categories);
+        $sellers = Seller::all();
+        return response()->json($sellers);
     }
 
-    public function byId($category_id)
-    {
-        $category = Category::find($category_id);
-        return response()->json($category);
+    public function byId($seller_id){
+        $seller = Seller::find($seller_id);
+        return response()->json($seller);
     }
     /**
      * Show the form for creating a new resource.
@@ -32,16 +31,18 @@ class CategoryController extends Controller
     public function create(Request $request)
     {
         $rules = [
-            'code' => 'required',
-            'name' => 'required'
+            'name' => 'required',
+            'mail' => 'required|email',
+            'address' => 'required',
+            'phone_number' => 'required'
         ];
         $validator = Validator::make($request->all(),$rules);
         if($validator->fails()){
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(),400);
         }
         else{
-          $category = Category::create($request->all());
-          return response()->json($category);
+            $seller = Seller::create($request->all());
+            return response()->json($seller);
         }
     }
 
@@ -85,19 +86,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $categoty_id)
+    public function update(Request $request, $id)
     {
-        $rules = [
-            'code' => 'required',
-            'name' => 'required'
-        ];
-        $validator = Validator::make($request->all(),$rules);
-        if($validator->fails()){
-            return response()->json($validator->errors());
-        }
-        else{
-            Category::whereId($categoty_id)->update($request->all());
-        }
+        //
     }
 
     /**

@@ -31,6 +31,8 @@ class ProductController extends Controller
                 'category_id' => $product->category_id,
                 //добавляем название категории
                 'category' => $product->category->name,
+                'seller_id' => $product->seller_id,
+                'seller_name' => $product->seller->name,
                 'price' => $product->price,
                 'created_at' => json_encode($product->created_at),
                 'updated_at' => json_encode($product->updated_at), 
@@ -55,6 +57,8 @@ class ProductController extends Controller
                 'category_id' => $product->category_id,
                 //добавляем название категории
                 'category' => $product->category->name,
+                'seller_id' => $product->seller_id,
+                'seller_name' => $product->seller->name,
                 'price' => $product->price,
                 'created_at' => json_encode($product->created_at),
                 'updated_at' => json_encode($product->updated_at), 
@@ -129,9 +133,25 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $product_id)
     {
-        //
+        //правила вадидации
+        $rules = [
+            'name'=>'required',
+            'category_id'=>'required|numeric',
+            'description'=>'required',
+            'price'=>'required|numeric'
+        ];
+        $validator= Validator::make($request->all(),$rules);
+        //если не валидные данные то возвращаем ошибку
+        if($validator->fails()){
+            return response()->json($validator->errors(),400);
+        }
+        else{
+            Product::whereId($product_id)->update($request->all());
+            $product = Product::find($product_id);
+            return response()->json($product);
+        }
     }
 
     /**

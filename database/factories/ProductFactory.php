@@ -26,6 +26,7 @@ class ProductFactory extends Factory
             'description' => $this->faker->text(120),
             'price' =>$this->faker->numberBetween(1,1000),
             'category_id' =>$this->faker->numberBetween(1,10),
+            'seller_id' => $this->faker->numberBetween(1,25),
             'created_at'  => now(),
             'updated_at'  => now(),
         ];

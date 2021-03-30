@@ -25,7 +25,6 @@ class OrderFactory extends Factory
             'code' => $this->faker->unique()->postcode,
             'product_id' => $this->faker->numberBetween(1,100),
             'user_id' => $this->faker->numberBetween(1,50),
-            'seller_id' => $this->faker->numberBetween(1,25),
             'confirmed' => $this->faker->boolean(),
             'created_at' => now(),
             'updated_at' => now(),

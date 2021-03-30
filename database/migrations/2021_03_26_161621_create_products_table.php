@@ -19,10 +19,12 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->unsignedBigInteger('price');
             $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('seller_id');
             $table->timestamps();
         });
         Schema::table('products', function (Blueprint $table) {
             $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('seller_id')->references('id')->on('sellers');
         });
     }
 

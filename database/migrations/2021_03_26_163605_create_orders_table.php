@@ -18,14 +18,12 @@ class CreateOrdersTable extends Migration
             $table->string('code');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('seller_id');
             $table->boolean('confirmed')->default(false);
             $table->timestamps();
         });
         Schema::table('orders', function (Blueprint $table) {
             $table->foreign('product_id')->references('id')->on('products');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('seller_id')->references('id')->on('sellers');
         });
     }
 

@@ -20,6 +20,12 @@ class UserController extends Controller
         return response()->json($users);
     }
 
+    public function byId(Request $request, $user_id)
+    {
+        $user = User::find($user_id);
+        return response()->json($user);
+    } 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -41,7 +47,7 @@ class UserController extends Controller
             $input = $request->all();
             $input['password'] = Hash::make($input['password']);
             User::create($input);
-            return response()->json($input);
+            return response()->json(['status'=>"user was created"],200);
         }
     }
 
@@ -118,8 +124,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($user_id)
     {
-        //
+         $user = User::destroy($user_id);
+         return response()->json($user);
     }
 }
