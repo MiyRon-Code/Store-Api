@@ -19,11 +19,22 @@ class UserController extends Controller
         $users = User::all();
         return response()->json($users);
     }
+    public function indexAll()
+    {
+        $users = User::withTrashed();
+        return response()->json($users);
+    }
 
     public function byId(Request $request, $user_id)
-    {
+    {   
+        
         $user = User::find($user_id);
-        return response()->json($user);
+        if($user){
+            return response()->json($user);
+        }
+        else{
+            return response()->json([],404);
+        }
     } 
 
     /**
@@ -36,8 +47,8 @@ class UserController extends Controller
         //правила вадидации
         $rules = [
             'name'=>'required',
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password'=>['required','min:8']
+            'email' => 'required|string|email|max:255|unique:users',
+            'password'=>'required|min:8'
         ];
         $validator = Validator::make($request->all(), $rules); 
         if($validator->fails()){
@@ -55,8 +66,8 @@ class UserController extends Controller
     {
         //правила вадидации
         $rules = [
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password'=>['required','min:8']
+            'email' => 'required|string|email|max:255',
+            'password'=>'required|min:8'
         ];
         $validator = Validator::make($request->all(), $rules); 
         if($validator->fails()){
@@ -126,7 +137,23 @@ class UserController extends Controller
      */
     public function destroy($user_id)
     {
-         $user = User::destroy($user_id);
-         return response()->json($user);
+         $user = User::withTrashed()->where('id',$user_id);
+         if($user){
+            $user->forceDelete();
+            return response()->json($user);
+         }
+         else{
+            return response()->json($user,404); 
+         }
+    }
+    public function delete($user_id){
+        $user = User::find($user_id);
+        if($user){
+            $user->delete();
+            return response()->json($user);
+        }
+        else{
+            return response()->json($user,404); 
+        }
     }
 }

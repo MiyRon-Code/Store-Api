@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
@@ -22,7 +23,12 @@ class CategoryController extends Controller
     public function byId($category_id)
     {
         $category = Category::find($category_id);
-        return response()->json($category);
+        if($category){
+            return response()->json($category);
+        }   
+        else{
+            return response()->json([],404);
+        }
     }
     /**
      * Show the form for creating a new resource.
@@ -44,7 +50,18 @@ class CategoryController extends Controller
           return response()->json($category);
         }
     }
-
+    
+    public function products($category_id)
+    {
+        if(Category::find($category_id)){
+            $products =  Category::find($category_id)->products;
+            return response()->json($products);
+        }
+        else{
+            return response()->json([],404);
+        }
+        
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -88,15 +105,22 @@ class CategoryController extends Controller
     public function update(Request $request, $categoty_id)
     {
         $rules = [
-            'code' => 'required',
-            'name' => 'required'
+            'code' => 'required|unique:categories',
+            'name' => 'required|unique:categories'
         ];
         $validator = Validator::make($request->all(),$rules);
         if($validator->fails()){
             return response()->json($validator->errors());
         }
         else{
-            Category::whereId($categoty_id)->update($request->all());
+            $category = Category::whereId($categoty_id)->update($request->all());
+            if($category){
+                return response()->json($category); 
+            }
+            else{
+                return response([],404);
+            }
+           
         }
     }
 
@@ -106,8 +130,26 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($category_id)
     {
-        //
+        $category = Category::withTrashed()->where('id',$category_id);
+        if($category){
+            $category->forceDelete();
+            return response()->json($category);
+        }
+        else{
+            return response()->json($category,404);
+        }
+    }
+    public function delete($category_id)
+    {
+        $category = Category::find($category_id);
+        if($category){
+            $category->delete();
+            return response()->json($category);
+        }
+        else{
+            return response()->json($category,404);
+        }
     }
 }

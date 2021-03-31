@@ -20,6 +20,7 @@ class CreateSellersTable extends Migration
             $table->string('address');
             $table->string('phone_number');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -30,6 +31,6 @@ class CreateSellersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seller');
+        Schema::dropIfExists('sellers');
     }
 }

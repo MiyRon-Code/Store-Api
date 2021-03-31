@@ -23,7 +23,7 @@ class OrderFactory extends Factory
     {
         return [
             'code' => $this->faker->unique()->postcode,
-            'product_id' => $this->faker->numberBetween(1,100),
+            'product_id' => $this->faker->unique()->numberBetween(1, 100),
             'user_id' => $this->faker->numberBetween(1,50),
             'confirmed' => $this->faker->boolean(),
             'created_at' => now(),

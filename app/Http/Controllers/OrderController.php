@@ -101,10 +101,49 @@ class OrderController extends Controller
      */
     public function destroy($order_id)
     {
-        $order = Order::destroy($order_id);
-        return response()->json($order);
+        $order = Order::withTrashed()->where('id',$order_id);
+        if($order){
+            $order->forceDelete();
+            return response()->json($order);
+        }
+        else{
+            return response()->json($order,404);
+        }
     }
-    public function destroyAll(){
 
+    public function destroyMyOrders(Request $request)
+    {
+        $myOrders = Order::withTrashed()->where('user_id',$request->user()->id);
+        $myOrders->forceDelete();
+        return response()->json($myOrders);
+    }
+
+    public function destroyAll(){
+        $orders = Order::withTrashed()->forceDelete();
+        return response()->json($orders);
+    }
+
+    public function delete($order_id)
+    {
+        $order = Order::withTrashed()->where('id',$order_id);
+        if($order){
+            $order->delete();
+            return response()->json($order);
+        }
+        else{
+            return response()->json($order,404);
+        }
+    }
+
+    public function deleteMyOrders(Request $request)
+    {
+        $myOrders = Order::withTrashed()->where('user_id',$request->user()->id);
+        $myOrders->delete();
+        return response()->json($myOrders);
+    }
+
+    public function deleteAll(){
+        $orders = Order::withTrashed()->delete();
+        return response()->json($orders);
     }
 }

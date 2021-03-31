@@ -20,10 +20,11 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->boolean('confirmed')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
         Schema::table('orders', function (Blueprint $table) {
-            $table->foreign('product_id')->references('id')->on('products');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -34,6 +35,10 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropForeign(['product_id']);
+            $table->dropForeign(['user_id']);
+        });
         Schema::dropIfExists('orders');
     }
 }

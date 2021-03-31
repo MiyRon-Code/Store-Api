@@ -21,10 +21,11 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('seller_id');
             $table->timestamps();
+            $table->softDeletes();
         });
         Schema::table('products', function (Blueprint $table) {
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('seller_id')->references('id')->on('sellers');
+            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('seller_id')->references('id')->on('sellers')->onUpdate('cascade')->onDelete('cascade');;;
         });
     }
 
@@ -35,6 +36,11 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropForeign(['category_id']);
+            $table->dropForeign(['seller_id']);
+        });
         Schema::dropIfExists('products');
+
     }
 }

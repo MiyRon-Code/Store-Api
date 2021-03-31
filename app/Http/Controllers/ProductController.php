@@ -43,31 +43,6 @@ class ProductController extends Controller
         return response()->json($productsResponce);
     }
 
-    public function byCategoryId($category_id)
-    {
-        $products =  Product::all()->where('category_id',$category_id);
-        
-        $productsResponce = array();
-        //добавляем в массив ответа данные
-        foreach($products as $product ){
-            $productResponce = [
-                'id' => $product->id,
-                'name' => $product->name,
-                'description' => $product->description,
-                'category_id' => $product->category_id,
-                //добавляем название категории
-                'category' => $product->category->name,
-                'seller_id' => $product->seller_id,
-                'seller_name' => $product->seller->name,
-                'price' => $product->price,
-                'created_at' => json_encode($product->created_at),
-                'updated_at' => json_encode($product->updated_at), 
-            ];
-            array_push($productsResponce,$productResponce);
-        }
-        //отвечаем
-        return response()->json($productsResponce);
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -160,8 +135,61 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($product_id)
     {
-        //
+        $product = Product::withTrashed()->where('id',$product_id);
+        if($product){
+            $product->forceDelete();
+            return response()->json($product);
+        }
+        else{
+            return response()->json($product,404);
+        }
+    }
+
+    public function destroyAllbyCategory($category_id)
+    {
+        $products = Product::withTrashed()->where('category_id',$category_id);
+        if($products){
+            $products->forceDelete();
+            return response()->json($products);
+        }
+        else{
+            return response()->json($products,404);
+        }
+    }
+
+    public function destroyAll()
+    {
+        $products = Product::withTrashed()->forceDelete();
+        return response()->json($products);
+    }
+
+    public function delete($product_id)
+    {
+        $product = Product::find($product_id);
+        if($product){
+            $product->delete();
+            return response()->json($product);
+        }
+        else{
+            return response()->json($product,404); 
+        }
+    }
+
+    public function deleteAllbyCategory($category_id)
+    {
+        $products = Product::withTrashed()->where('category_id',$category_id);
+        if($products){
+            $products->delete();
+            return response()->json($products);
+        }
+        else{
+            return response()->json($products,404);
+        }
+    }
+    public function deleteAll(){
+        $products = Product::withTrashed()->delete();
+        return response()->json($products);
     }
 }
