@@ -86,9 +86,30 @@ class SellerCotroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $seller_id)
     {
-        //
+        $seller = Seller::find($seller_id);
+        if($seller){
+            $rules = [
+                'name' => 'required',
+                'mail' => 'required|email',
+                'address' => 'required',
+                'phone_number' => 'required'
+            ];
+            $validator = Validator::make($request->all(),$rules);
+            if($validator->fails()){
+                return response()->json($validator->errors(),400);
+            }
+            else{
+                Seller::whereId($seller_id)->update($request->all());
+                $seller = Seller::find($seller_id);
+                return response()->json($seller);
+            }
+        }
+        else{
+            return response([],404);
+        }
+       
     }
 
     /**

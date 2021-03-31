@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
@@ -17,6 +19,7 @@ class OrderController extends Controller
         $orders = Order::all();
         return response()->json($orders);
     }
+
     public function myOrders(Request $request){
         $myOrders = Order::all()->where('user_id',$request->user()->id);
         return response()->json($myOrders);
@@ -39,8 +42,9 @@ class OrderController extends Controller
      */
     public function create(Request $request, $product_id)
     {
+        //hash('crc32b', $request->all()['name']),
         $order = Order::create([
-            'code' => 'asda',
+            'code' =>hash('crc32b', $product_id.$request->user()->id.now()),
             'product_id' => $product_id,
             'user_id' => $request->user()->id,
             'confirmed' => false,
@@ -88,9 +92,28 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $order_id)
     {
-        //
+        $rules = [
+            'user_id' => 'required|numeric|exists:App\Models\User,id',
+            'product_id' => 'required|numeric|exists:App\Models\Product,id',
+            'confirmed' => 'required|boolean'
+        ];
+        $validator = Validator::make($request->all(),$rules);
+        if($validator->fails()){
+            return response()->json($validator->errors(),400);
+        }
+        else{
+            $input = $request->all();
+            Order::whereId($order_id)->update([
+                'code' => hash('crc32b', $input['product_id'] .$input['user_id'] .now()),
+                'user_id' => $input['user_id'],
+                'product_id' => $input['product_id'],
+                'confirmed' => $input['confirmed']
+            ]);
+            $order = Order::find($order_id);
+            return response()->json($order);
+        }
     }
 
     /**

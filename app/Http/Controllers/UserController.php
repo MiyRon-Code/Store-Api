@@ -21,7 +21,7 @@ class UserController extends Controller
     }
     public function indexAll()
     {
-        $users = User::withTrashed();
+        $users = User::withTrashed()->get();
         return response()->json($users);
     }
 
@@ -124,9 +124,23 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $user_id)
     {
-        //
+        if(User::find($user_id)){
+            $rules = [
+                'name'=>'required',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password'=>'required|min:8'
+            ];
+            $validator = Validator::make($request->all(), $rules); 
+            if($validator->fails()){
+                return response()->json($validator->errors());
+            }
+            else{
+                User::where('id',$user_id)->update($request->all());
+                return User::find($user_id);
+            }
+        }
     }
 
     /**
@@ -155,5 +169,9 @@ class UserController extends Controller
         else{
             return response()->json($user,404); 
         }
+    }
+    public function tokenDelete (Request $request){
+        $result = $request->user()->currentAccessToken()->delete();
+        return response()->json($result);
     }
 }

@@ -21,10 +21,12 @@ class OrderFactory extends Factory
      */
     public function definition()
     {
+        $user_id =  $this->faker->numberBetween(1,50);
+        $product_id = $this->faker->unique()->numberBetween(1, 100);
         return [
-            'code' => $this->faker->unique()->postcode,
-            'product_id' => $this->faker->unique()->numberBetween(1, 100),
-            'user_id' => $this->faker->numberBetween(1,50),
+            'code' =>hash('crc32b', $product_id.$user_id.now()),
+            'product_id' => $product_id,
+            'user_id' =>  $user_id,
             'confirmed' => $this->faker->boolean(),
             'created_at' => now(),
             'updated_at' => now(),

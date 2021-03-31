@@ -113,7 +113,7 @@ class ProductController extends Controller
         //правила вадидации
         $rules = [
             'name'=>'required',
-            'category_id'=>'required|numeric',
+            'category_id'=>'required|numeric|exists:App\Models\Category,id',
             'description'=>'required',
             'price'=>'required|numeric'
         ];

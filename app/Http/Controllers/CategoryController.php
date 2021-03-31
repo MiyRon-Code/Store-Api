@@ -105,7 +105,6 @@ class CategoryController extends Controller
     public function update(Request $request, $categoty_id)
     {
         $rules = [
-            'code' => 'required|unique:categories',
             'name' => 'required|unique:categories'
         ];
         $validator = Validator::make($request->all(),$rules);
@@ -113,7 +112,11 @@ class CategoryController extends Controller
             return response()->json($validator->errors());
         }
         else{
-            $category = Category::whereId($categoty_id)->update($request->all());
+            $input = $request->all();
+            $category = Category::whereId($categoty_id)->update([
+                'name' => $input['name'],
+                'code' => hash('crc32b', $input['name'].now()),
+            ]);
             if($category){
                 return response()->json($category); 
             }

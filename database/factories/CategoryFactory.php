@@ -24,7 +24,7 @@ class CategoryFactory extends Factory
         $name = $this->faker->unique()->word();
         return [
             'name' => $name,
-            'code' =>substr(str_replace(' ', '',$name),0,4),
+            'code' =>hash('crc32b', $name.now()),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
         ];

@@ -45,16 +45,16 @@ Route::middleware('isjson')->prefix('create')->group(function () {
 });
 
 Route::middleware('isjson')->prefix('update')->group(function () {
-    Route::post('/user/{user_id}', [Controllers\UserController::class, 'update']);// не реализовано
+    Route::post('/user/{user_id}', [Controllers\UserController::class, 'update']);
     Route::post('/seller/{seller_id}',[Controllers\SellerCotroller::class, 'update']);
-    Route::post('/category/{category_id}', [Controllers\CategoryController::class, 'update']);// не реализовано
-    Route::post('/product/{prosuct_id}', [Controllers\ProductController::class, 'update']);// не реализовано
-    Route::post('/order/{order_id}', [Controllers\OrderController::class, 'update']);// не реализовано
-    
+    Route::post('/category/{category_id}', [Controllers\CategoryController::class, 'update']);
+    Route::post('/product/{prosuct_id}', [Controllers\ProductController::class, 'update']);
+    Route::post('/order/{order_id}', [Controllers\OrderController::class, 'update']);
 });
 
 Route::prefix('delete')->group(function () {
     Route::get('/user/{user_id}', [Controllers\UserController::class, 'delete']);
+    Route::middleware('auth:sanctum')->get('/token', [Controllers\UserController::class, 'tokenDelete']);
     Route::get('/category/{category_id}', [Controllers\CategoryController::class, 'delete']); 
     Route::get('/product/{id}', [Controllers\ProductController::class, 'delete']); 
     Route::get('/products', [Controllers\ProductController::class, 'deleteAll']);
