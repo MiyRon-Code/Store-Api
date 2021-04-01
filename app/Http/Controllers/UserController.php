@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\MailProcess;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserRegistration;
+
 
 class UserController extends Controller
 {
@@ -57,7 +63,11 @@ class UserController extends Controller
         else{
             $input = $request->all();
             $input['password'] = Hash::make($input['password']);
-            User::create($input);
+            
+            $user = User::create($input);
+            MailProcess::dispatch($user);
+
+            Mail::to($user->email)->send(new UserRegistration($user->name));
             return response()->json(['status'=>"user was created"],200);
         }
     }
