@@ -1,7 +1,7 @@
-#Начало
+# Начало
 Прежде всего у вас должна быть установлена [`8+`][0] версия фреймворка [`Laravel`][1]. Вам также необходимы база данных `mySql` и локальный сервер   на котором вы будете запускать приложение [`Laravel`][1]. Я рекомендую использовать [`xampp`][2] обратите внимание что `php` должен быть версией выше [`7.4+`][3] обычно [`xampp`][2] уже имеет в пакете [`php`][3] поэтому вам не нужно беспокоиться. Также вам понадобиться [`Composer`][4].
 
-#Установка
+# Установка
 После того как вы настроили окружение вам нужно создать проект [`Laravel`][1]. Перейдите в директорию с проектами в вашем локальном сервере. Если это [`xampp`][2] то директория называется `htdocs` путь до этой директории 
 
 ```
@@ -85,7 +85,7 @@ $ php artisan migrate
 $ php artisan db:seed
 ```
 
-######Настройка отправки писем на почту ( можете пропустить этот шаг если не хотите отправлять письма )
+###### Настройка отправки писем на почту ( можете пропустить этот шаг если не хотите отправлять письма )
 
 В файле `.env` напишите конфигурацию для подключения к smtp серверу для отправки писем. Вы можете использовать сторонние сервисы например [`mailtrap`][7] или [`gmail.smtp`][8]
 
@@ -107,28 +107,28 @@ MAIL_FROM_NAME="${APP_NAME}"
 $ php artisan queue:work
 ```
 
-######Если вам нужно отменить миграции выполните команду 
+###### Если вам нужно отменить миграции выполните команду 
 ```
 $ php artisan migrate:reset
 ```
 
 Отлично! Теперь всё готово к работе. 
 
-#API - как использовать?
+# API - как использовать?
 Выполняйте `http` запросы на  адрес вашего локального сервера средствами [`postman`][6] или другими аналогами.
 
-##User
+## User
 Получить всех пользователей
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/get/users</span> 
+>GET `localhost:80/api/get/users` 
 
 Получить всех пользователей в том числе и "мягко удалённых"
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/get/users/all</span> 
+>GET  `localhost:80/api/get/users/all` 
 
 Получить пользователя по id 
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/get/user/{user_id}</span> 
+>GET  `localhost:80/api/get/user/{user_id}` 
 
 `response json`
 ```json
@@ -145,7 +145,7 @@ $ php artisan migrate:reset
 
 Создать нового пользователя 
 
-<span style="color:white; background-color:#3300FF; padding:5px 10px; border-radius: 3px 0px 0px 3px;">POST</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/create/user</span> 
+>POST  `localhost:80/api/create/user` 
 
 `request json`
 
@@ -160,7 +160,7 @@ $ php artisan migrate:reset
 
 Получить токен авторизации
 
-<span style="color:white; background-color:#3300FF; padding:5px 10px; border-radius: 3px 0px 0px 3px;">POST</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/create/user/token</span> 
+>POST  `localhost:80/api/create/user/token`
 
 `request json`
 `необходимо указать password и email существующего пользователя`
@@ -174,7 +174,7 @@ $ php artisan migrate:reset
 
 Обновить данные пользователя
 
-<span style="color:white; background-color:#3300FF; padding:5px 10px; border-radius: 3px 0px 0px 3px;">POST</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/update/user/{user_id}</span> 
+>POST  `localhost:80/api/update/user/{user_id}` 
 
 `request json`
 
@@ -187,7 +187,7 @@ $ php artisan migrate:reset
 ```
 Мягко удалить пользователя ( с возможностью восстановить )
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/delete/user/{user_id}</span> 
+>GET  `localhost:80/api/delete/user/{user_id}` 
 
 `response json`
 
@@ -205,17 +205,17 @@ $ php artisan migrate:reset
 
 Удалить пользователя ( без возможности восстановить )
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/destroy/user/{user_id}</span> 
+>GET  `localhost:80/api/destroy/user/{user_id}` 
 
-##Seller
+## Seller
 
 Получить всех продавцов
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/get/sellers</span> 
+>GET  `localhost:80/api/get/sellers` 
 
 Получить  продавца по id
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/get/seller/{seller_id}</span>
+>GET  `localhost:80/api/get/seller/{seller_id}`
 
 `json response`
 
@@ -233,11 +233,11 @@ $ php artisan migrate:reset
 ```
 Создать продавца
 
-<span style="color:white; background-color:#3300FF; padding:5px 10px; border-radius: 3px 0px 0px 3px;">POST</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/create/seller</span> 
+>POST  `localhost:80/api/create/seller`
 
 Обновить данные продавца
 
-<span style="color:white; background-color:#3300FF; padding:5px 10px; border-radius: 3px 0px 0px 3px;">POST</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/update/seller/{seller_id}</span> 
+>POST  `localhost:80/api/update/seller/{seller_id` 
 
 `request json`
 
@@ -252,7 +252,7 @@ $ php artisan migrate:reset
 
 Мягко удалить продавца  ( с возможностью восстановить )
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/delete/seller/{seller_id}</span> 
+>GET `localhost:80/api/delete/seller/{seller_id}` 
 
 `response json`
 
@@ -271,17 +271,17 @@ $ php artisan migrate:reset
 
 Удалить продавца  ( без возможности восстановить )
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/destroy/seller/{seller_id}</span> 
+>GET   `localhost:80/api/destroy/seller/{seller_id}` 
 
-#Category
+# Category
 
 Получить все категории
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/get/categories</span> 
+>GET  `localhost:80/api/get/categories`
 
 Получить категорию по id 
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/get/category/{category_id}</span> 
+>GET  `localhost:80/api/get/category/{category_id}` 
 
 `response json`
 
@@ -298,7 +298,7 @@ $ php artisan migrate:reset
 
 Получить продукты категории по id 
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/get/category/{category_id}/products</span> 
+>GET  `localhost:80/api/get/category/{category_id}/products` 
 
 `response json`
 
@@ -318,11 +318,11 @@ $ php artisan migrate:reset
 
 Создать категорию
 
-<span style="color:white; background-color:#3300FF; padding:5px 10px; border-radius: 3px 0px 0px 3px;">POST</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/create/category</span> 
+>POST  `localhost:80/api/create/category` 
 
 Обновить категорию
     
-<span style="color:white; background-color:#3300FF; padding:5px 10px; border-radius: 3px 0px 0px 3px;">POST</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/update/category/{category_id}</span> 
+>POST  `localhost:80/api/update/category/{category_id}` 
 
 
 `request json`
@@ -337,7 +337,7 @@ $ php artisan migrate:reset
 
 Мягко удалить категорию ( с возможностью восстановить )
     
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/delete/category/{category_id}</span> 
+>GET  `localhost:80/api/delete/category/{category_id}` 
 
 `response json`
 
@@ -354,17 +354,17 @@ $ php artisan migrate:reset
 
 Удалить категорию ( без возможности восстановить )
     
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/destroy/category/{category_id}</span>
+>GET   `localhost:80/api/destroy/category/{category_id}`
 
 #Product
 
 Получить все продукты
     
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/get/products</span>
+>GET  `localhost:80/api/get/products`
 
 Получить продукт по id 
     
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/get/product/{product_id}</span>
+>GET  `localhost:80/api/get/product/{product_id}`
 
 `response json`
 
@@ -384,11 +384,11 @@ $ php artisan migrate:reset
 
 Создать продукт  
     
-<span style="color:white; background-color:#3300FF; padding:5px 10px; border-radius: 3px 0px 0px 3px;">POST</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/create/product</span>
+>POST  `localhost:80/api/create/product`
 
 Обновить продукт  
     
-<span style="color:white; background-color:#3300FF; padding:5px 10px; border-radius: 3px 0px 0px 3px;">POST</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/update/product</span>
+>POST  `localhost:80/api/update/product`
 
 `request json`
 
@@ -402,39 +402,39 @@ $ php artisan migrate:reset
 }
 ```
 Мягко удалить продукт по id ( с возможностью восстановить ) 
-    
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/delete/product/{product_id}</span>
+
+>GET  `localhost:80/api/delete/product/{product_id}`
 
 Мягко удалить все продукты ( с возможностью восстановить )
     
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/delete/products</span>
+>GET  `localhost:80/api/delete/products`
 
 Мягко удалить все продукты по id категории ( с возможностью восстановить )
     
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/delete/products/category/{category_id}</span>
+>GET  `localhost:80/api/delete/products/category/{category_id}`
 
 Удалить продукт по id ( без возможности восстановить ) 
     
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/destroy/product/{product_id}</span>
+>GET  `localhost:80/api/destroy/product/{product_id}`
 
 
 Удалить все продукты ( без возможности восстановить )
-    
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/destroy/products</span>
+
+>GET localhost:80/api/destroy/products
 
 Удалить все продукты по id категории ( без возможности восстановить )
     
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/destroy/products/category/{category_id}</span>
+>GET  `localhost:80/api/destroy/products/category/{category_id}`
 
 `при удалении сущности все записи связанные с данной сущностью будут также удалены`
 
-#Order
-###авторизация
+# Order
+### авторизация
 Работа с данными запросами требует `Токена Авторизации` это значит что вам нужно создать своего пользователя и получить токен авторизации. 
 
 Создать своего пользователя
 
-<span style="color:white; background-color:#3300FF; padding:5px 10px; border-radius: 3px 0px 0px 3px;">POST</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/create/user</span> 
+>POST  `localhost:80/api/create/user` 
 
 `request json`
 
@@ -448,7 +448,7 @@ $ php artisan migrate:reset
 
 Получить его `Токен Авторизации`
 
-<span style="color:white; background-color:#3300FF; padding:5px 10px; border-radius: 3px 0px 0px 3px;">POST</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/create/user/token</span>
+>POST  `localhost:80/api/create/user/token`
 
 при запросе нужно указать `email` и `password` вашего пользователя
 
@@ -472,20 +472,20 @@ $ php artisan migrate:reset
 
 Получить все заказы
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/get/orders</span>
+>GET   `localhost:80/api/get/orders`
 
 Получить заказы вашего пользователя
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/get/my/orders</span>
+>GET  `localhost:80/api/get/my/orders`
 
 
 Получить подтвержденные заказы 
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/get/orders/confirmed</span>
+>GET  `localhost:80/api/get/orders/confirmed`
 
 Получить  не подтвержденные заказы 
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/get/orders/unconfirmed</span>
+>GET  `localhost:80/api/get/orders/unconfirmed`
 
 `response json`
 
@@ -503,8 +503,7 @@ $ php artisan migrate:reset
 ```
 
 Создать заказ
-
-<span style="color:white; background-color:#3300FF; padding:5px 10px; border-radius: 3px 0px 0px 3px;">POST</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/create/order/{product_id}</span>
+>POST  `localhost:80/api/create/order/{product_id}`
 
 `response json`
 
@@ -522,7 +521,7 @@ $ php artisan migrate:reset
 
 Обновить заказ
 
-<span style="color:white; background-color:#3300FF; padding:5px 10px; border-radius: 3px 0px 0px 3px;">POST</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/update/order/{order_id}</span>
+>POST  `localhost:80/api/update/order/{order_id}`
 
 `request json`
 
@@ -537,32 +536,31 @@ $ php artisan migrate:reset
 
 Мягко удалить заказ ( с возможностью восстановить ) 
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/delete/order/{order_id}</span>
+> GET `localhost:80/api/delete/order/{order_id}`
 
 Мягко удалить заказы вашего пользователя ( с возможностью восстановить ) 
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/delete/my/orders</span>
+>GET `localhost:80/api/delete/my/orders`
 
 Мягко удалить все заказы ( с возможностью восстановить ) 
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/delete/orders</span>
+>GET  `localhost:80/api/delete/orders`
 
 Удалить заказ ( без возможности восстановить ) 
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/destroy/order/{order_id}</span>
+> GET  `localhost:80/api/destroy/order/{order_id}`
 
 Удалить  заказы вашего пользователя ( без возможности восстановить ) 
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/destroy/my/orders</span>
+>GET  `localhost:80/api/destroy/my/orders`
 
 Удалить все заказы ( без возможности восстановить ) 
 
-<span style="color:white; background-color:#EF002A; padding:5px 10px; border-radius: 3px 0px 0px 3px;">GET</span><span style="color:white; background-color:#26262B; padding:5px; border-radius: 0px 3px 3px 0px; letter-spacing: 2px">localhost:80/api/destroy/orders</span>
+>GET  `localhost:80/api/destroy/orders`
 
-#Контакты
+# Контакты
 
-
-<a target="_blank" style="display:flex; align-items:center;" href="https://t.me/M_MiyRon"><img src="https://roi4cio.com/uploads/roi/company/Telegram_LLC_Logo.png" style="width:30px; height:30px; margin: 5px;"> MiyRon</a>
+Telegram [MiyRon][9]
 
 ---
 
@@ -578,3 +576,4 @@ $ php artisan migrate:reset
 [4]:https://getcomposer.org/ 
 [5]:https://laravel.com/docs/8.x/sanctum
 [6]:https://www.postman.com/
+[9]:https://t.me/M_MiyRon
