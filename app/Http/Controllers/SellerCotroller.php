@@ -118,8 +118,26 @@ class SellerCotroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($seller_id)
     {
-        //
+        $seller = Seller::withTrashed()->where('id',$seller_id);
+         if($seller){
+            $seller->forceDelete();
+            return response()->json($seller);
+         }
+         else{
+            return response()->json($seller,404); 
+         }
+    }
+    public function delete($seller_id)
+    {
+        $seller = Seller::find($seller_id);
+        if($seller){
+            $seller->delete();
+            return response()->json($seller);
+        }
+        else{
+            return response()->json($seller,404); 
+        }
     }
 }

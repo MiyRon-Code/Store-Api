@@ -13,8 +13,13 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function byId($id){
-        return response()->json(Product::find($id));
+    public function byId($product_id){
+        if(Product::find($product_id)){
+            return response()->json(Product::find($product_id));
+        }
+        else{
+            return response()->json([],404);
+        }
     }
     public function index()
     {
@@ -53,9 +58,10 @@ class ProductController extends Controller
         //правила вадидации
         $rules = [
             'name'=>'required',
-            'category_id'=>'required|numeric',
+            'category_id'=>'required|numeric|exists:App\Models\Category,id',
             'description'=>'required',
-            'price'=>'required|numeric'
+            'price'=>'required|numeric',
+            'seller_id'=>'required|numeric|exists:App\Models\Seller,id',
         ];
         $validator= Validator::make($request->all(),$rules);
         //если не валидные данные то возвращаем ошибку
@@ -115,7 +121,8 @@ class ProductController extends Controller
             'name'=>'required',
             'category_id'=>'required|numeric|exists:App\Models\Category,id',
             'description'=>'required',
-            'price'=>'required|numeric'
+            'price'=>'required|numeric',
+            'seller_id'=>'required|numeric|exists:App\Models\Seller,id',
         ];
         $validator= Validator::make($request->all(),$rules);
         //если не валидные данные то возвращаем ошибку
