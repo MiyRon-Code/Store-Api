@@ -12,6 +12,7 @@ use Illuminate\Queue\SerializesModels;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserRegistration;
+use Illuminate\Support\Facades\Log;
 
 class MailProcess implements ShouldQueue
 {
@@ -23,8 +24,8 @@ class MailProcess implements ShouldQueue
      * @return void
      * 
      */
-    private $user;
-    public function __construct( \App\Models\User $user_data)
+    protected $user;
+    public function __construct($user_data)
     {
         $this->user = $user_data;
     }

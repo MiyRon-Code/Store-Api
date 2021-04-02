@@ -67,7 +67,7 @@ class UserController extends Controller
             $user = User::create($input);
             MailProcess::dispatch($user);
 
-            Mail::to($user->email)->send(new UserRegistration($user->name));
+           
             return response()->json(['status'=>"user was created"],200);
         }
     }

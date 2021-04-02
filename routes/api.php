@@ -73,6 +73,7 @@ Route::prefix('destroy')->group(function () {
     Route::middleware('auth:sanctum')->get('/order/{order_id}', [Controllers\OrderController::class, 'destroy']);
     Route::middleware('auth:sanctum')->get('/my/orders', [Controllers\OrderController::class, 'destroyMyOrders']);
     Route::middleware('auth:sanctum')->get('/orders', [Controllers\OrderController::class, 'destroyAll']);
+ 
 });
 
 Route::get('/login', function(){
