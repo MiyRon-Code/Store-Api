@@ -356,7 +356,7 @@ $ php artisan migrate:reset
     
 >GET   `localhost:80/api/destroy/category/{category_id}`
 
-#Product
+# Product
 
 Получить все продукты
     
@@ -576,4 +576,6 @@ Telegram [MiyRon][9]
 [4]:https://getcomposer.org/ 
 [5]:https://laravel.com/docs/8.x/sanctum
 [6]:https://www.postman.com/
+[7]:https://blog.mailtrap.io/send-email-in-laravel/
+[8]:https://support.google.com/a/answer/176600?hl=ru
 [9]:https://t.me/M_MiyRon
