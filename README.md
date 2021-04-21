@@ -1,32 +1,123 @@
+[![][stars-shield]][stars-url]
+[![][contributors-shield]][contributors-url]
+[![][issues-shield]][issues-url]
+
+
+<br />
+<p align="center">
+  <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="200"></a>
+  </p>
+
+  <h3 align="center">JSON API сервис интернет-магазина</h3>
+
+  <p align="center">Краткая документацая по использованию API
+посредством Postman
+    <br />
+    <a href="https://github.com/MiyRon-Code/Store-Api#readme"><strong>Ознакомиться с документацией »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/MiyRon-Code/Store-Api/issues">Сообщить об ошибке</a>
+    ·
+    <a href="https://github.com/MiyRon-Code/Store-Api/issues">Предложить идею</a>
+  </p>
+</p>
+
+<details open="open">
+  <summary>Содержание</summary>
+  <ol>
+    <li>
+      <a href="#о-проекте">О проекте</a>
+      <ul>
+        <li><a href="#функционал">Функционал</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#начало">Начало</a>
+      <ul>
+        <li><a href="#требования">Требования</a></li>
+        <li><a href="#установка">Установка</a></li>
+      </ul>
+    </li>
+    <li>
+        <a href="#использование">Использование</a>
+          <ul>
+            <li><a href="#пользователи">Пользователи</a></li>
+            <li><a href="#продавцы">Продавцы</a></li>
+            <li><a href="#категории">Категории</a></li>
+            <li><a href="#продукты">Продукты</a></li>
+            <li><a href="#заказы">Заказы</a></li>
+          </ul>
+        </li>
+    <li><a href="#контакты">Контакты</a></li>
+  </ol>
+</details>
+
+<br>
+
+# О проекте
+<b>Store-Api</b> - это JSON API сервис интернет-магазина, реализованный посредством PHP (Laravel) и MySQL.
+
+## Функционал
+- Пользователи регистрируются самостоятельно через e-mail;
+- Пользователи могут просматривать каталог товаров (название,
+цена, наличие) по категориям и осуществлять заказ выбранных
+позиций;
+- Не авторизованные пользователи не могут осуществлять заказы;
+- Пользователи имеют возможность производить поиск по
+товарам;
+- Приложение автоматически направляет e-mail уведомление
+на почту при регистрации или новом заказе товара. 
+- Раз в сутки в 00:00 все заказы подтверждаются
+автоматически.
+
+<br>
+
 # Начало
-Прежде всего у вас должна быть установлена [`8+`][0] версия фреймворка [`Laravel`][1]. Вам также необходимы база данных `mySql` и локальный сервер   на котором вы будете запускать приложение [`Laravel`][1]. Я рекомендую использовать [`xampp`][2] обратите внимание что `php` должен быть версией выше [`7.4+`][3] обычно [`xampp`][2] уже имеет в пакете [`php`][3] поэтому вам не нужно беспокоиться. Также вам понадобиться [`Composer`][4].
+Ниже приложена инструкция по установке проекта. Чтобы запустить локальную копию, следуйте этим простым примерам действий.
+
+## Требования
+- `PHP` версией [`7.4+`][3]
+- [`Laravel`][1] ([`8+`][0] версия фреймворка) 
+- [`Composer`][4]
+- `MySQL` база данных
+- Локальный сервер, на котором будет запускаться приложение [`Laravel`][1] (рекомендую [`xampp`][2], уже имеющий в пакете [`php`][3])
+
+<br>
 
 # Установка
-После того как вы настроили окружение вам нужно создать проект [`Laravel`][1]. Перейдите в директорию с проектами в вашем локальном сервере. Если это [`xampp`][2] то директория называется `htdocs` путь до этой директории 
+После того как Вы настроили окружение, Вам нужно создать проект [`Laravel`][1]. Перейдите в директорию с проектами на Вашем локальном сервере. Если это [`xampp`][2], то директория называется `htdocs`. 
+
+Путь до этой директории:
 
 ```
 $ cd xampp\htdocs
 ```
 
-Создайте проект
+Создание проекта:
 ```
 $ laravel new name-your-project
 ```
 
-Склонируйте мой репозиторий
+Клонирование репозитория:
 ```
 $ git clone https://github.com/MiyRon-Code/Store-Api.git
 ```
-Замените все файлы из вашего проекта на файлы Store-Api. (Перетащите все файлы из Store-Api в папку вашего проекта)
+<br>
+Замените все файлы из Вашего проекта на файлы Store-Api. Перетащите все файлы из Store-Api в папку Вашего проекта.
 
-После замены файлов перейдите в файл конфигурации Apache `httpd.conf`. Если вы используете [`xampp`][2] файл конфигурации находится по следующему пути
+После замены файлов перейдите в файл конфигурации Apache - `httpd.conf`. 
+
+Если Вы используете [`xampp`][2], файл конфигурации находится по следующему пути:
 ```
 $ cd xampp\apache\conf
 ``` 
-Откройте файл и замените `DocumentRoot` и `Directory` чтобы Apache мог найти точку входа `index.php` вашего приложения [`Laravel`][1] 
+<br>
+
+Откройте файл и замените `DocumentRoot` и `Directory` так, чтобы Apache мог найти точку входа `index.php` Вашего приложения [`Laravel`][1] 
+
 ```Apache config
-DocumentRoot "C:/xampp/htdocs/name-your-project/public"
-<Directory "C:/xampp/htdocs/name-your-project/public">
+DocumentRoot "C:/xampp/htdocs/name-of-your-project/public"
+<Directory "C:/xampp/htdocs/name-of-your-project/public">
     #
     # Possible values for the Options directive are "None", "All",
     # or any combination of:
@@ -54,13 +145,17 @@ DocumentRoot "C:/xampp/htdocs/name-your-project/public"
     Require all granted
 </Directory>
 ```
-После того как вы указали точку входа вашего приложения вам необходимо настроить подключение к вашей базе данных `mySql` для этого перейдите в директорию вашего проекта
+<br>
+
+Теперь Вам необходимо настроить подключение к Вашей базе данных `MySQL`. 
+
+Перейдите в директорию Вашего проекта:
 
 ```
 $ cd name-your-project
 ```
-Откройте файл `.env`
-Настройте подключение к вашей базе данных. Перед этим создав базу с именем например `store-api` ( имя на ваше усмотрение ). Напишите название вашей базы данных напротив `DB_DATABASE`, укажите пользователя со всеми правами и его пароль напротив `DB_USERNAME`, `DB_PASSWORD`
+
+Создайте базу данных с именем, например, `store-api`. Откройте файл `.env`. Введите название Вашей базы данных напротив `DB_DATABASE`, укажите пользователя со всеми правами и его пароль напротив `DB_USERNAME`, `DB_PASSWORD`:
 ```.env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -69,25 +164,28 @@ DB_DATABASE=store-api
 DB_USERNAME=your_username
 DB_PASSWORD=your_password
 ```
-Теперь когда у вас есть подключение к базе данных 
-выполните установку пакета [`Sanctum`][5] он нужен для авторизации. В директории вашего проекта выполните команду 
+Теперь, когда у Вас есть подключение к базе данных, выполните установку пакета [`Sanctum`][5]: он нужен для авторизации. 
+
+В директории Вашего проекта выполните команду:
 ```
 $ composer require laravel/sanctum
 ```
 Запустите локальный сервер и сервер базы данных.
 
-Выполните миграции. Это создаст нужные таблицы в вашей базе данных и установит отношения.
+Выполните миграции. Это создаст нужные таблицы в Вашей базе данных и установит отношения:
 ```
 $ php artisan migrate
 ```
-Заполните базу данных тестовыми данными
+Заполните базу данных тестовыми данными:
 ```
 $ php artisan db:seed
 ```
+<br>
 
-###### Настройка отправки писем на почту ( можете пропустить этот шаг если не хотите отправлять письма )
+## Настройка отправки писем на почту
+<i>  Вы можете пропустить этот шаг, если не планируете отправлять письма. </i>
 
-В файле `.env` напишите конфигурацию для подключения к smtp серверу для отправки писем. Вы можете использовать сторонние сервисы например [`mailtrap`][7] или [`gmail.smtp`][8]
+В файле `.env` введите конфигурацию для подключения к smtp серверу для отправки писем. Вы можете использовать сторонние сервисы, например, [`mailtrap`][7] или [`gmail.smtp`][8]
 
 ```
 MAIL_MAILER=smtp
@@ -102,35 +200,50 @@ MAIL_FROM_NAME="${APP_NAME}"
 ```
 
 
-Включите очередь для отправки писем
+Включите очередь для отправки писем:
 ```
 $ php artisan queue:work
 ```
 
-###### Если вам нужно отменить миграции выполните команду 
+ Если Вам нужно отменить миграции, выполните команду:
 ```
 $ php artisan migrate:reset
 ```
 
-Отлично! Теперь всё готово к работе. 
+### На этом этапе установка и настройка приложения завершена.
 
-# API - как использовать?
-Выполняйте `http` запросы на  адрес вашего локального сервера средствами [`postman`][6] или другими аналогами.
+<br>
 
-## User
-Получить всех пользователей
+# Использование
+Выполняйте `http` запросы на адрес Вашего локального сервера посредством [`postman`][6] или другими аналогами.
 
->GET `localhost:80/api/get/users` 
+<br>
 
-Получить всех пользователей в том числе и "мягко удалённых"
+## Пользователи
+### Получение пользователей
+<i>Ниже описаны все возможные способы получения пользователей.</i>
 
->GET  `localhost:80/api/get/users/all` 
+<br>
 
-Получить пользователя по id 
+Получение всех пользователей:
 
->GET  `localhost:80/api/get/user/{user_id}` 
+>GET    `localhost:80/api/get/users` 
 
-`response json`
+<br>
+
+Получение всех пользователей, в том числе и "мягко удалённых":
+
+>GET    `localhost:80/api/get/users/all` 
+
+<br>
+
+Получение пользователя по ID: 
+
+>GET    `localhost:80/api/get/user/{user_id}` 
+
+<br>
+
+`Response JSON`
 ```json
   {
     "id": Number,
@@ -143,53 +256,53 @@ $ php artisan migrate:reset
   }
 ```
 
-Создать нового пользователя 
+<br>
 
->POST  `localhost:80/api/create/user` 
+### Создание пользователя:
 
-`request json`
+
+>POST    `localhost:80/api/create/user` 
+
+<br>
+
+`Request JSON`
 
 ```json
 {
-    "name":String,
-    "email":String,
+    "name": String,
+    "email": String,
     "password": String
 }
 ```
 
-
-Получить токен авторизации
-
->POST  `localhost:80/api/create/user/token`
-
-`request json`
-`необходимо указать password и email существующего пользователя`
-
-```json
-{
-    "email":String,
-    "password": String
-}
-```
-
-Обновить данные пользователя
-
+### Обновление пользователя:
 >POST  `localhost:80/api/update/user/{user_id}` 
 
-`request json`
+<br>
+
+`Request JSON`
 
 ```json
 {
-    "name":String,
-    "email":String,
+    "name": String,
+    "email": String,
     "password": String
 }
 ```
-Мягко удалить пользователя ( с возможностью восстановить )
+<br>
 
->GET  `localhost:80/api/delete/user/{user_id}` 
+### Удаление пользователей
+<i>Ниже описаны все возможные способы удаления пользователей.</i>
 
-`response json`
+<br>
+
+Мягкое удаление пользователя (с возможностью восстановить):
+
+>GET    `localhost:80/api/delete/user/{user_id}` 
+
+<br>
+
+`Response JSON`
 
 ```json
 {
@@ -203,21 +316,54 @@ $ php artisan migrate:reset
 }
 ```
 
-Удалить пользователя ( без возможности восстановить )
+<br>
 
->GET  `localhost:80/api/destroy/user/{user_id}` 
+Удаление пользователя (без возможности восстановить):
 
-## Seller
+>GET    `localhost:80/api/destroy/user/{user_id}` 
 
-Получить всех продавцов
 
->GET  `localhost:80/api/get/sellers` 
+<br>
 
-Получить  продавца по id
+### Получение токена авторизации:
 
->GET  `localhost:80/api/get/seller/{seller_id}`
+>POST    `localhost:80/api/create/user/token`
 
-`json response`
+<i>Необходимо указать password и email существующего пользователя.</i>
+
+
+<br>
+
+`Request JSON`
+
+
+```json
+{
+    "email": String,
+    "password": String
+}
+```
+
+<br>
+
+## Продавцы
+### Получение продавцов
+<i>Ниже описаны все возможные способы получения продавцов.</i>
+
+<br>
+
+Получение всех продавцов:
+>GET    `localhost:80/api/get/sellers` 
+
+<br>
+
+Получение продавца по ID:
+
+>GET    `localhost:80/api/get/seller/{seller_id}`
+
+<br>
+
+`Response JSON`
 
 ```json
 {
@@ -231,15 +377,22 @@ $ php artisan migrate:reset
     "deleted_at": String DateTime
   }
 ```
-Создать продавца
 
->POST  `localhost:80/api/create/seller`
+<br>
 
-Обновить данные продавца
+### Создание продавца:
 
->POST  `localhost:80/api/update/seller/{seller_id` 
+>POST    `localhost:80/api/create/seller`
 
-`request json`
+<br>
+
+### Обновление продавца:
+
+>POST    `localhost:80/api/update/seller/{seller_id` 
+
+<br>
+
+`Request JSON`
 
 ```json
 {
@@ -250,11 +403,20 @@ $ php artisan migrate:reset
 }
 ```
 
-Мягко удалить продавца  ( с возможностью восстановить )
+<br>
 
->GET `localhost:80/api/delete/seller/{seller_id}` 
+### Удаление продавцов
+<i>Ниже описаны все возможные способы удаления продавцов.</i>
 
-`response json`
+<br>
+
+Мягкое удаление продавца  (с возможностью восстановить):
+
+>GET    `localhost:80/api/delete/seller/{seller_id}` 
+
+<br>
+
+`Response JSON`
 
 ```json
 {
@@ -269,21 +431,31 @@ $ php artisan migrate:reset
 }
 ```
 
-Удалить продавца  ( без возможности восстановить )
+<br>
 
->GET   `localhost:80/api/destroy/seller/{seller_id}` 
+Удаление продавца  (без возможности восстановить):
 
-# Category
+>GET    `localhost:80/api/destroy/seller/{seller_id}` 
 
-Получить все категории
+<br>
 
->GET  `localhost:80/api/get/categories`
+# Категории
+### Получение категорий
+<i>Ниже описаны все возможные способы получения категорий.</i>
 
-Получить категорию по id 
+<br>
 
->GET  `localhost:80/api/get/category/{category_id}` 
+Получение всех категорий:
+>GET    `localhost:80/api/get/categories`
 
-`response json`
+<br>
+
+Получение категории по ID:
+>GET    `localhost:80/api/get/category/{category_id}` 
+
+<br>
+
+`Response JSON`
 
 ```json
 {
@@ -296,36 +468,21 @@ $ php artisan migrate:reset
 },
 ```
 
-Получить продукты категории по id 
 
->GET  `localhost:80/api/get/category/{category_id}/products` 
+### Создание категории
 
-`response json`
+>POST    `localhost:80/api/create/category` 
 
-```json
-{
-    "id": Number,
-    "name": String,
-    "description": String
-    "price": Number,
-    "category_id": Number,
-    "seller_id": Number,
-    "created_at":  String DateTime,
-    "updated_at":  String DateTime,
-    "deleted_at":  String DateTime,
-},
-```
+<br>
 
-Создать категорию
-
->POST  `localhost:80/api/create/category` 
-
-Обновить категорию
+### Обновление категории
     
->POST  `localhost:80/api/update/category/{category_id}` 
+>POST    `localhost:80/api/update/category/{category_id}` 
 
 
-`request json`
+<br>
+
+`Request JSON`
 
 ```json
 {
@@ -335,11 +492,19 @@ $ php artisan migrate:reset
 }
 ```
 
-Мягко удалить категорию ( с возможностью восстановить )
-    
->GET  `localhost:80/api/delete/category/{category_id}` 
+<br>
 
-`response json`
+
+### Удаление категорий
+<i>Ниже описаны все возможные способы удаления категорий.</i>
+
+Мягкое удаление категории (с возможностью восстановить):
+    
+>GET    `localhost:80/api/delete/category/{category_id}` 
+
+<br>
+
+`Response JSON`
 
 ```json
 {
@@ -352,21 +517,39 @@ $ php artisan migrate:reset
 }
 ```
 
-Удалить категорию ( без возможности восстановить )
+<br>
+
+Удаление категории (без возможности восстановить):
     
->GET   `localhost:80/api/destroy/category/{category_id}`
+>GET    `localhost:80/api/destroy/category/{category_id}`
 
-# Product
+<br>
 
-Получить все продукты
+# Продукты
+### Получение продуктов
+<i>Ниже описаны все возможные способы получения продуктов.</i>
+
+<br>
+
+Получение всех продуктов:
     
->GET  `localhost:80/api/get/products`
+>GET    `localhost:80/api/get/products`
 
-Получить продукт по id 
-    
->GET  `localhost:80/api/get/product/{product_id}`
+<br>
 
-`response json`
+
+Получение всех продуктов по категории: 
+>GET    `localhost:80/api/get/category/{category_id}/products` 
+
+<br>
+
+
+Получение продукта по ID: 
+>GET    `localhost:80/api/get/product/{product_id}`
+
+<br>
+
+`Response JSON`
 
 ```json
 {
@@ -382,112 +565,156 @@ $ php artisan migrate:reset
 }
 ```
 
-Создать продукт  
-    
->POST  `localhost:80/api/create/product`
+<br>
 
-Обновить продукт  
-    
->POST  `localhost:80/api/update/product`
+Создание продукта:
+>POST    `localhost:80/api/create/product`
 
-`request json`
+<br>
+
+Обновление продукта:
+>POST    `localhost:80/api/update/product`
+
+<br>
+
+`Request JSON`
 
 ```json
 {
-    "name":String,
+    "name": String,
     "category_id": Number,
     "description": String,
     "price": Number,
     "seller_id": Number
 }
 ```
-Мягко удалить продукт по id ( с возможностью восстановить ) 
 
->GET  `localhost:80/api/delete/product/{product_id}`
+<br>
 
-Мягко удалить все продукты ( с возможностью восстановить )
-    
->GET  `localhost:80/api/delete/products`
+### Удаление продуктов
+<i>Ниже описаны все возможные способы удаления продуктов.</i>
 
-Мягко удалить все продукты по id категории ( с возможностью восстановить )
-    
->GET  `localhost:80/api/delete/products/category/{category_id}`
+<br>
 
-Удалить продукт по id ( без возможности восстановить ) 
-    
->GET  `localhost:80/api/destroy/product/{product_id}`
+Мягкое удаление продукта (с возможностью восстановить):
+>GET    `localhost:80/api/delete/product/{product_id}`
 
+<br>
 
-Удалить все продукты ( без возможности восстановить )
+Мягкое удаление всех продуктов (с возможностью восстановить):
+>GET    `localhost:80/api/delete/products`
 
->GET localhost:80/api/destroy/products
+<br>
 
-Удалить все продукты по id категории ( без возможности восстановить )
-    
->GET  `localhost:80/api/destroy/products/category/{category_id}`
+Мягкое удаление всех продуктов по категории (с возможностью восстановить):
+>GET    `localhost:80/api/delete/products/category/{category_id}`
 
-`при удалении сущности все записи связанные с данной сущностью будут также удалены`
+<br>
 
-# Order
-### авторизация
-Работа с данными запросами требует `Токена Авторизации` это значит что вам нужно создать своего пользователя и получить токен авторизации. 
+Удаление продукта (без возможности восстановить):
+>GET    `localhost:80/api/destroy/product/{product_id}`
 
-Создать своего пользователя
+<br>
 
->POST  `localhost:80/api/create/user` 
+Удаление всех продукты (без возможности восстановить):
+>GET    localhost:80/api/destroy/products
 
-`request json`
+<br>
+
+Удаление всех продуктов по категории (без возможности восстановить):
+>GET    `localhost:80/api/destroy/products/category/{category_id}`
+
+<br>
+
+<i>При удалении сущности все записи, связанные с данной сущностью, будут также удалены.</i>
+
+<br>
+
+# Заказы
+## Авторизация
+Работа с данными запросами требует `Токена Авторизации`. Это значит, что Вам нужно создать своего пользователя и получить токен авторизации. 
+
+<br>
+
+Создание своего пользователя:
+
+>POST    `localhost:80/api/create/user` 
+
+<br>
+
+`Request JSON`
 
 ```json
 {
-    "name":String,
-    "email":String,
+    "name": String,
+    "email": String,
     "password": String
 }
 ```
 
-Получить его `Токен Авторизации`
+<br>
 
->POST  `localhost:80/api/create/user/token`
+Получение его `Токена Авторизации`:
 
-при запросе нужно указать `email` и `password` вашего пользователя
+>POST    `localhost:80/api/create/user/token`
 
-`request json`
+<i>Необходимо указать password и email существующего пользователя.</i>
+
+<br>
+
+`Request JSON`
 
 ```json
 {
-    "email":String,
+    "email": String,
     "password": String
 }
 ```
 
-`response json`
+`Response JSON`
 
 ```json
 {
-    "token": "<your_token_here>"
+    "token": "<your_token>"
 }
 ```
-Что бы доказать Laravel что вы авторизованы необходимо указать `Заголовок http запроса` `Authorization` с значением `Bearer <your_token_here>` после этой процедуры вы сможете получить доступ к запросам требующих авторизации
 
-Получить все заказы
+<br>
 
->GET   `localhost:80/api/get/orders`
+Чтобы доказать Laravel, что Вы авторизованы, необходимо указать `Заголовок http запроса` `Authorization` с значением `Bearer <your_token>`. 
 
-Получить заказы вашего пользователя
+После этой процедуры Вы сможете получить доступ к запросам требующих авторизации.
 
->GET  `localhost:80/api/get/my/orders`
+<br>
+
+### Получение заказов
+<i>Ниже описаны все возможные способы получения заказов.</i>
 
 
-Получить подтвержденные заказы 
+<br>
 
->GET  `localhost:80/api/get/orders/confirmed`
+Получение всех заказов:
+>GET    `localhost:80/api/get/orders`
 
-Получить  не подтвержденные заказы 
+<br>
 
->GET  `localhost:80/api/get/orders/unconfirmed`
+Получение заказов Вашего пользователя:
+>GET    `localhost:80/api/get/my/orders`
 
-`response json`
+<br>
+
+
+Получение подтвержденных заказов: 
+>GET    `localhost:80/api/get/orders/confirmed`
+
+<br>
+
+Получение неподтвержденных заказов: 
+>GET    `localhost:80/api/get/orders/unconfirmed`
+
+<br>
+
+`Response JSON`
 
 ```json
 {
@@ -502,10 +729,14 @@ $ php artisan migrate:reset
 },
 ```
 
-Создать заказ
->POST  `localhost:80/api/create/order/{product_id}`
+<br>
 
-`response json`
+### Создание заказа:
+>POST    `localhost:80/api/create/order/{product_id}`
+
+<br>
+
+`Response JSON`
 
 ```json 
 {
@@ -519,11 +750,15 @@ $ php artisan migrate:reset
 }
 ```
 
-Обновить заказ
+<br>
 
->POST  `localhost:80/api/update/order/{order_id}`
+### Обновление заказа:
 
-`request json`
+>POST    `localhost:80/api/update/order/{order_id}`
+
+<br>
+
+`Request JSON`
 
 ```json
 {
@@ -533,30 +768,41 @@ $ php artisan migrate:reset
 }
 ```
 
+### Удаление заказов
+<i>Ниже описаны все возможные способы удаления заказов.</i>
 
-Мягко удалить заказ ( с возможностью восстановить ) 
+<br>
 
-> GET `localhost:80/api/delete/order/{order_id}`
 
-Мягко удалить заказы вашего пользователя ( с возможностью восстановить ) 
+Мягкое удаление заказа (с возможностью восстановить):
+>GET    `localhost:80/api/delete/order/{order_id}`
 
->GET `localhost:80/api/delete/my/orders`
+<br>
 
-Мягко удалить все заказы ( с возможностью восстановить ) 
+Мягкоt удаление заказов Вашего пользователя (с возможностью восстановить):
+>GET    `localhost:80/api/delete/my/orders`
 
->GET  `localhost:80/api/delete/orders`
+<br>
 
-Удалить заказ ( без возможности восстановить ) 
+Мягкое удаление всех заказов (с возможностью восстановить):
+>GET    `localhost:80/api/delete/orders`
 
-> GET  `localhost:80/api/destroy/order/{order_id}`
+<br>
 
-Удалить  заказы вашего пользователя ( без возможности восстановить ) 
+Удаление заказа (без возможности восстановить):
+>GET    `localhost:80/api/destroy/order/{order_id}`
 
->GET  `localhost:80/api/destroy/my/orders`
+<br>
 
-Удалить все заказы ( без возможности восстановить ) 
+Удаление заказов Вашего пользователя (без возможности восстановить): 
+>GET    `localhost:80/api/destroy/my/orders`
 
->GET  `localhost:80/api/destroy/orders`
+<br>
+
+Удаление все заказов (без возможности восстановить):
+>GET    `localhost:80/api/destroy/orders`
+
+<br>
 
 # Контакты
 
@@ -568,6 +814,15 @@ Telegram [MiyRon][9]
 </p>
 
 
+
+[stars-shield]: https://img.shields.io/github/stars/MiyRon-Code/Store-Api.svg?style=for-the-badge
+[stars-url]: https://github.com/MiyRon-Code/Store-Api/stargazers
+[contributors-shield]: https://img.shields.io/github/contributors/MiyRon-Code/Store-Api.svg?style=for-the-badge
+[contributors-url]: https://github.com/MiyRon-Code/Store-Api/graphs/contributors
+[issues-shield]: https://img.shields.io/github/issues/MiyRon-Code/Store-Api.svg?style=for-the-badge
+[issues-url]: https://github.com/MiyRon-Code/Store-Api/issues
+
+[php-shield]: https://img.shields.io/github/issues/MiyRon-Code/Store-Api.svg?style=for-the-badge
 
 [0]: https://laravel.com/docs/8.x
 [1]: https://laravel.com/
